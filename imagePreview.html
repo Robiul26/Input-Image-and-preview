@@ -1,32 +1,31 @@
 <div class="row">
 	<div class="col-sm-3">
-		<div class="form-group">
-			<label for="image">
-			  <img src="https://m.floweraura.com/sites/all/themes/blog/images/12-very-Unusual/1.jpg" id="s_photo" class="img-responsive border" style="height:180px; display: inline;">
-			</label>
-			<input type="file" onchange="previewFile()" name="image" id="image" style=" display: none;">
-		</div>
+	      <div class="form-group">
+		<label for="image">
+		  <img src="h" class="img-responsive border s_photo" style="height:180px; display: inline;">
+		</label>
+		<input type="file" name="image" class="image" id="image" style=" display: none;">
+	      </div>
 	</div>
 </div>
 
 <script>
-    // image preview 
-    $("#s_photo").change(function() {
-      readURL(this);
-    });
-    // image preview function
-    function previewFile() {
-      var preview = document.querySelector('#s_photo'); //selects the query named img
-      var file = document.querySelector('input[type=file]').files[0]; //sames as here
-      var reader = new FileReader();
-      reader.onloadend = function() {
-        preview.src = reader.result;
-      }
-      if (file) {
-        reader.readAsDataURL(file); //reads the data as a URL
-      } else {
-        file.preview.src = '<img src="assets/backend/users/noimage.jpg" />';
-      }
+function readURL(input, selector) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    
+    reader.onload = function(e) {
+      selector.attr('src', e.target.result);
     }
-    previewFile(); //calls the function named previewFile()
-  </script>
+    
+    reader.readAsDataURL(input.files[0]); // convert to base64 string
+  }
+}
+
+$(function(){
+  $(".image").change(function() {
+    s_photo = $(this).closest('.form-group').find('.s_photo');
+    readURL(this, s_photo);
+  });
+})
+</script>
